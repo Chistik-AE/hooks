@@ -1,21 +1,33 @@
 import Column from "../Column/Column"
+import { cardList } from "../../data"
 
-function Main() {
-    return (
-        <main className="main">
-        <div className="container">
-          <div className="main__block">
-            <div className="main__content">
-              <Column tilte={"Без статуса"} />
-              <Column tilte={"Нужно сделать"} />
-              <Column tilte={"В работе"} />
-              <Column tilte={"Тестирование"} />
-              <Column tilte={"Готово"} />
-            </div>
+
+const statusList = [
+  "Без статуса",
+  "Нужно сделать",
+  "В работе",
+  "Тестирование",
+  "Готво",
+];
+
+function Main({ cardList, isLoading }) {
+  return (
+    <main className="main">
+      <div className="container">
+        <div className="main__block">
+          <div className="main__content">
+            {
+              isLoading ? 'Идёт загрузка' :
+                statusList.map((status) => (
+                  <Column key={status} tilte={status}
+                    cardList={cardList.filter((card) => card.status === status)} />
+                ))
+            }
           </div>
         </div>
-      </main>
-    )
+      </div>
+    </main>
+  )
 }
 
 export default Main
